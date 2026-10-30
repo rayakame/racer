@@ -2,7 +2,6 @@
 
 #include <math.h>
 
-
 // Mat2
 
 Mat2 mat2_rotation(const float angle) {
@@ -44,7 +43,7 @@ Vec2 vec2_scale(Vec2 a, const float s) {
 }
 
 float vec2_len(const Vec2 a) {
-    return sqrtf(vec2_dot(a,a));
+    return sqrtf(vec2_dot(a, a));
 }
 
 float vec2_dot(const Vec2 a, const Vec2 b) {

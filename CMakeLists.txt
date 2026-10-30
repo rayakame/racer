@@ -4,6 +4,7 @@ project(racer C)
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(ENABLE_SANITIZERS "Enable AddressSanitizer and UBSan" OFF)
 
@@ -54,3 +55,32 @@ add_executable(trainer
 )
 target_link_libraries(trainer PRIVATE core)
 racer_configure_target(trainer)
+
+# Tooling: format, format-check, tidy
+file(GLOB_RECURSE RACER_ALL_SOURCES CONFIGURE_DEPENDS
+        "${CMAKE_SOURCE_DIR}/src/*.c"
+        "${CMAKE_SOURCE_DIR}/src/*.h"
+)
+
+find_program(CLANG_FORMAT clang-format HINTS /opt/homebrew/opt/llvm/bin)
+if(CLANG_FORMAT)
+    add_custom_target(format
+            COMMAND ${CLANG_FORMAT} -i ${RACER_ALL_SOURCES}
+            COMMENT "Formatting sources"
+            VERBATIM
+    )
+    add_custom_target(format-check
+            COMMAND ${CLANG_FORMAT} --dry-run --Werror ${RACER_ALL_SOURCES}
+            COMMENT "Checking formatting"
+            VERBATIM
+    )
+endif()
+
+find_program(RUN_CLANG_TIDY run-clang-tidy HINTS /opt/homebrew/opt/llvm/bin)
+if(RUN_CLANG_TIDY)
+    add_custom_target(tidy
+            COMMAND ${RUN_CLANG_TIDY} -p ${CMAKE_BINARY_DIR} -quiet "${CMAKE_SOURCE_DIR}/src/"
+            COMMENT "Running clang-tidy"
+            VERBATIM
+    )
+endif()

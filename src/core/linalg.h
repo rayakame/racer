@@ -1,7 +1,6 @@
 #ifndef RACER_LINALG_H
 #define RACER_LINALG_H
 
-
 typedef struct {
     float x1, y1;
     float x2, y2;
@@ -27,4 +26,4 @@ float vec2_dot(Vec2 a, Vec2 b);
 Vec2 vec2_norm(Vec2 a);
 Vec2 vec2_rotate(Vec2 a, float angle);
 
-#endif //RACER_LINALG_H
+#endif // RACER_LINALG_H

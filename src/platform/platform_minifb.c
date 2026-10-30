@@ -1,2 +1,2 @@
-#include "platform.h"
 #include "MiniFB.h"
+#include "platform.h"

@@ -1,6 +1,5 @@
-#include <stdio.h>
 #include "core/log.h"
-
+#include <stdio.h>
 
 int main(void) {
 
@@ -10,6 +9,6 @@ int main(void) {
     LOG_INFO("Test");
     LOG_WARN("Test");
     LOG_ERROR("Test");
-    //LOG_FATAL("Test");
+    // LOG_FATAL("Test");
     return 0;
 }
